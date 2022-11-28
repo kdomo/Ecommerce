@@ -1,5 +1,6 @@
 package com.domo.ecommerce.entity;
 
+import com.domo.ecommerce.common.entity.BaseEntity;
 import com.domo.ecommerce.type.Role;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Member {
+public class Member extends BaseEntity {
     public enum Status {
         DEFAULT, DELETED
     }
