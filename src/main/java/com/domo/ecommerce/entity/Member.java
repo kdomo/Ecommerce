@@ -18,20 +18,31 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //회원 아이디
+    private String memberId;
+
+    //회원 패스워드
     private String password;
 
+    //회원 이름
     private String name;
 
+    //회원 전화번호
     private String tel;
 
+    //회원 상태
     private Status status;
 
+    //회원 권한
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    //우편번호
     private String addressCode;
 
+    //주소
     private String address;
 
+    //상세주소
     private String addressDetail;
 }
