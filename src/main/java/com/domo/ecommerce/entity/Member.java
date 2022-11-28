@@ -32,6 +32,7 @@ public class Member extends BaseEntity {
     private String tel;
 
     //회원 상태
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     //회원 권한
