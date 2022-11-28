@@ -20,7 +20,11 @@ spring:
       ddl-auto: none
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-
+  redis:
+    host:
+    port: 6379
+  session:
+    store-type: redis
 logging:
   level:
     '[org.springframework.web]': INFO
