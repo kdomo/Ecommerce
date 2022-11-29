@@ -1,27 +1,23 @@
 package com.domo.ecommerce.entity;
 
 import com.domo.ecommerce.common.entity.BaseEntity;
+import com.domo.ecommerce.type.MemberStatus;
 import com.domo.ecommerce.type.Role;
+import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Entity
 public class Member extends BaseEntity {
-    public enum Status {
-        DEFAULT, DELETED
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,7 +37,7 @@ public class Member extends BaseEntity {
 
     //회원 상태
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private MemberStatus status;
 
     //회원 권한
     @Enumerated(EnumType.STRING)
@@ -55,4 +51,22 @@ public class Member extends BaseEntity {
 
     //상세주소
     private String addressDetail;
+
+    @Builder
+    public Member(Long id, String memberId, String password, String name, String tel, MemberStatus status,
+            Role role, String addressCode, String address, String addressDetail,
+            LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.memberId = memberId;
+        this.password = password;
+        this.name = name;
+        this.tel = tel;
+        this.status = status;
+        this.role = role;
+        this.addressCode = addressCode;
+        this.address = address;
+        this.addressDetail = addressDetail;
+        super.setCreatedAt(createdAt);
+        super.setUpdatedAt(updatedAt);
+    }
 }
