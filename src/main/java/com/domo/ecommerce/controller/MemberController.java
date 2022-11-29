@@ -28,12 +28,32 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    /**
+     * @Valid 메서드의 파라미터, request에서 지정한 Regex에 통과하지 않는다면
+     * MethodArgumentNotValidException을 발생시켜 404 상태코드를 반환한다.
+     *
+     * 고객이 입력한 정보로 회원가입을 진행한다. ID 중복체크를 진행하여 ID 중복시
+     * DuplicateMemberIdException를 발생시켜 409 상태코드를 반환한다.
+     *
+     * 회원가입에 성공시 201 상태코드를 반환한다.
+     *
+     * @param request
+     * @return
+     */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void signUp(@RequestBody @Valid MemberSignUp.Request request) {
         memberService.signUp(request);
     }
 
+    /**
+     * 회원 로그인을 진행한다. Login 요청 시 id, password가 Blank시
+     * MethodArgumentNotValidException을 발생시켜 404 상태코드를 반환한다.
+     *
+     * @param request 로그인 요청 정보
+     * @param session 사용자의 세션
+     * @return
+     */
     @PostMapping("/login")
     public ResponseEntity<MemberLogin.Response> login(
             @RequestBody @Valid MemberLogin.Request request,
