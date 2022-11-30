@@ -55,4 +55,22 @@ public class SessionUtil {
     public static String getLoginAdminId(HttpSession session) {
         return (String) session.getAttribute(LOGIN_ADMIN_ID);
     }
+
+    /**
+     * 로그인 한 회원 정보를 삭제한다.
+     *
+     * @param session 사용자 세션
+     */
+    public static void logoutMember(HttpSession session) {
+        session.removeAttribute(LOGIN_MEMBER_ID);
+    }
+
+    /**
+     * 로그인 한 관리자의 정보를 삭제한다.
+     *
+     * @param session
+     */
+    public static void logoutAdmin(HttpSession session) {
+        session.removeAttribute(LOGIN_ADMIN_ID);
+    }
 }
