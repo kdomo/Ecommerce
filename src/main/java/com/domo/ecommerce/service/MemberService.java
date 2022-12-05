@@ -4,6 +4,7 @@ import com.domo.ecommerce.dto.member.MemberDto;
 import com.domo.ecommerce.dto.member.MemberSignUp.Request;
 import com.domo.ecommerce.entity.Member;
 import com.domo.ecommerce.exception.DuplicateMemberIdException;
+import com.domo.ecommerce.exception.LoginFailException;
 import com.domo.ecommerce.repository.MemberRepository;
 import com.domo.ecommerce.type.MemberStatus;
 import com.domo.ecommerce.type.Role;
@@ -76,7 +77,7 @@ public class MemberService {
         Optional<Member> optionalMember =
                 memberRepository.findByMemberIdAndPassword(id, encPassword);
         if (!optionalMember.isPresent()) {
-            return null;
+            throw new LoginFailException("로그인에 실패하였습니다.");
         }
         return MemberDto.of(optionalMember.get());
     }

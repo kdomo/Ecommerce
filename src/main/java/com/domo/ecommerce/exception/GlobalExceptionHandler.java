@@ -45,4 +45,14 @@ public class GlobalExceptionHandler {
                 .timestamp(LocalDateTime.now())
                 .build();
     }
+
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(LoginFailException.class)
+    public ErrorMsg handleLoginFailException(LoginFailException e) {
+        return ErrorMsg.builder()
+                .msg(e.getLocalizedMessage())
+                .errorCode(getSimpleName(e))
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
 }
