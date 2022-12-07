@@ -1,8 +1,10 @@
 package com.domo.ecommerce.entity;
 
 import com.domo.ecommerce.common.entity.BaseEntity;
+import com.domo.ecommerce.dto.member.MemberSignUp;
 import com.domo.ecommerce.type.MemberStatus;
 import com.domo.ecommerce.type.Role;
+import com.domo.ecommerce.utils.SHA256Util;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,14 +12,14 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
 @Entity
 public class Member extends BaseEntity {
+    protected Member() {
+
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,21 +54,19 @@ public class Member extends BaseEntity {
     //상세주소
     private String addressDetail;
 
-    @Builder
-    public Member(Long id, String memberId, String password, String name, String tel, MemberStatus status,
-            Role role, String addressCode, String address, String addressDetail,
-            LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.id = id;
-        this.memberId = memberId;
-        this.password = password;
-        this.name = name;
-        this.tel = tel;
-        this.status = status;
-        this.role = role;
-        this.addressCode = addressCode;
-        this.address = address;
-        this.addressDetail = addressDetail;
-        super.setCreatedAt(createdAt);
-        super.setUpdatedAt(updatedAt);
+
+    public static Member signUp(MemberSignUp.Request request) {
+        Member member = new Member();
+        member.memberId = request.getMemberId();
+        member.password = SHA256Util.encryptSHA256(request.getPassword());
+        member.name = request.getName();
+        member.tel = request.getTel();
+        member.status = MemberStatus.DEFAULT;
+        member.role = Role.MEMBER;
+        member.addressCode = request.getAddressCode();
+        member.address = request.getAddress();
+        member.addressDetail = request.getAddressDetail();
+        member.setCreatedAt(LocalDateTime.now());
+        return member;
     }
 }

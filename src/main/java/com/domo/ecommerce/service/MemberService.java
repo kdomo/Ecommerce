@@ -31,21 +31,7 @@ public class MemberService {
      */
     public void signUp(Request request) {
         isDuplicatedMemberId(request.getMemberId());
-
-        memberRepository.save(
-                Member.builder()
-                        .memberId(request.getMemberId())
-                        .password(SHA256Util.encryptSHA256(request.getPassword()))
-                        .name(request.getName())
-                        .tel(request.getTel())
-                        .status(MemberStatus.DEFAULT)
-                        .role(Role.MEMBER)
-                        .addressCode(request.getAddressCode())
-                        .address(request.getAddress())
-                        .addressDetail(request.getAddressDetail())
-                        .createdAt(LocalDateTime.now())
-                        .build()
-        );
+        memberRepository.save(Member.signUp(request));
     }
 
     /**
