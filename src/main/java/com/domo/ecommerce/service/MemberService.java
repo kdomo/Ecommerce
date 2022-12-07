@@ -57,8 +57,7 @@ public class MemberService {
      * @return true : 중복된 아이디, false : 중복되지 않은 아이디 (생성가능)
      */
     public void isDuplicatedMemberId(String memberId) {
-        Optional<Member> optionalMember = memberRepository.findByMemberId(memberId);
-        if (optionalMember.isPresent()) {
+        if (memberRepository.existsByMemberId(memberId)) {
             throw new DuplicateMemberIdException("중복된 아이디 입니다.");
         }
     }
