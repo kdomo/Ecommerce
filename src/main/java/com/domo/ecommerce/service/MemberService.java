@@ -1,5 +1,7 @@
 package com.domo.ecommerce.service;
 
+import static com.domo.ecommerce.type.MemberStatus.DELETED;
+
 import com.domo.ecommerce.dto.member.MemberDto;
 import com.domo.ecommerce.dto.member.MemberSignUp.Request;
 import com.domo.ecommerce.entity.Member;
@@ -64,11 +66,13 @@ public class MemberService {
      */
     public MemberDto login(String id, String password) {
         String encPassword = SHA256Util.encryptSHA256(password);
-        Optional<Member> optionalMember =
-                memberRepository.findByMemberIdAndPassword(id, encPassword);
-        if (!optionalMember.isPresent()) {
-            throw new LoginFailException("로그인에 실패하였습니다.");
+        Member member = memberRepository.findByMemberIdAndPassword(id, encPassword)
+                        .orElseThrow(() -> new LoginFailException("로그인에 실패하였습니다."));
+
+        if (member.getStatus() == DELETED) {
+            throw new LoginFailException("삭제 된 회원입니다.");
         }
-        return MemberDto.of(optionalMember.get());
+
+        return MemberDto.of(member);
     }
 }

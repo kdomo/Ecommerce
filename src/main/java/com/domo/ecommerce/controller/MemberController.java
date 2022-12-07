@@ -69,25 +69,15 @@ public class MemberController {
     public ResponseEntity<MemberLogin.Response> login(
             @RequestBody @Valid MemberLogin.Request request,
             HttpSession session) {
-        ResponseEntity<MemberLogin.Response> responseEntity = null;
         String id = request.getMemberId();
         String password = request.getPassword();
-        MemberLogin.Response response;
+
 
         MemberDto memberDto = memberService.login(id, password);
-        if (memberDto == null) {
-            response = new Response(LoginStatus.FAIL);
-            responseEntity = new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
-        } else if (MemberStatus.DEFAULT == memberDto.getStatus()) {
-            response = new Response(LoginStatus.SUCCESS, memberDto);
-            SessionUtil.setLoginMemberId(session, memberDto.getMemberId());
-            responseEntity = new ResponseEntity<>(response, HttpStatus.OK);
-        } else {
-            log.error("login ERROR : {}", request);
-            throw new RuntimeException("login ERROR");
-        }
+        MemberLogin.Response response = new Response(LoginStatus.SUCCESS, memberDto);
+        SessionUtil.setLoginMemberId(session, id);
 
-        return responseEntity;
+        return ResponseEntity.ok(response);
 
     }
 
