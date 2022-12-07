@@ -1,9 +1,9 @@
-package com.domo.ecommerce.config;
+package com.domo.ecommerce.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @Configuration
 @EnableJpaAuditing
-public class JpaAuditingConfig {
+public class JpaAuditingConfiguration {
 }

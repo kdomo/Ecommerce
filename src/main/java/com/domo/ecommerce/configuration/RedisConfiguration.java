@@ -1,4 +1,4 @@
-package com.domo.ecommerce.config;
+package com.domo.ecommerce.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +11,7 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
-public class RedisConfig {
+public class RedisConfiguration {
     @Value("${spring.redis.host}")
     public String host;
 
