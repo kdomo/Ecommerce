@@ -45,7 +45,16 @@ public class MemberController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void signUp(@RequestBody @Valid MemberSignUp.Request request) {
-        memberService.signUp(request);
+
+        memberService.signUp(
+                request.getMemberId(),
+                request.getPassword(),
+                request.getName(),
+                request.getTel(),
+                request.getAddressCode(),
+                request.getAddress(),
+                request.getAddressDetail()
+        );
     }
 
     /**

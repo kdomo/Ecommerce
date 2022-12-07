@@ -55,17 +55,18 @@ public class Member extends BaseEntity {
     private String addressDetail;
 
 
-    public static Member signUp(MemberSignUp.Request request) {
+    public static Member signUp(String memberId, String password, String name, String tel,
+            String addressCode, String address, String addressDetail) {
         Member member = new Member();
-        member.memberId = request.getMemberId();
-        member.password = SHA256Util.encryptSHA256(request.getPassword());
-        member.name = request.getName();
-        member.tel = request.getTel();
+        member.memberId = memberId;
+        member.password = SHA256Util.encryptSHA256(password);
+        member.name = name;
+        member.tel = tel;
         member.status = MemberStatus.DEFAULT;
         member.role = Role.MEMBER;
-        member.addressCode = request.getAddressCode();
-        member.address = request.getAddress();
-        member.addressDetail = request.getAddressDetail();
+        member.addressCode = addressCode;
+        member.address = address;
+        member.addressDetail = addressDetail;
         member.setCreatedAt(LocalDateTime.now());
         return member;
     }

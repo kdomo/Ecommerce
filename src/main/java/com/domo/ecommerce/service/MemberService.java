@@ -27,11 +27,17 @@ public class MemberService {
      * 중복체크 시 이상이 없다면 insert를 진행한다.
      * 입력된 비밀번호를 암호화하여 저장한다.
      *
-     * @param request
+     * @param memberId, password ,name, tel, addressCode, address, addressDetail
      */
-    public void signUp(Request request) {
-        isDuplicatedMemberId(request.getMemberId());
-        memberRepository.save(Member.signUp(request));
+    public void signUp(
+            String memberId, String password, String name, String tel,
+            String addressCode, String address, String addressDetail
+    ) {
+        isDuplicatedMemberId(memberId);
+
+        memberRepository.save(
+                Member.signUp(memberId, password, name, tel, addressCode, address, addressDetail)
+        );
     }
 
     /**
@@ -50,10 +56,9 @@ public class MemberService {
 
 
     /**
-     * 회원 로그인
-     * 조회된 결과가 없다면 null 반환
+     * 회원 로그인 조회된 결과가 없다면 null 반환
      *
-     * @param id 로그인 아이디
+     * @param id       로그인 아이디
      * @param password 로그인 비밀번호
      * @return
      */
