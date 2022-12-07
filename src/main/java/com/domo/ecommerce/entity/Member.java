@@ -1,7 +1,6 @@
 package com.domo.ecommerce.entity;
 
 import com.domo.ecommerce.common.entity.BaseEntity;
-import com.domo.ecommerce.dto.member.MemberSignUp;
 import com.domo.ecommerce.type.MemberStatus;
 import com.domo.ecommerce.type.Role;
 import com.domo.ecommerce.utils.SHA256Util;

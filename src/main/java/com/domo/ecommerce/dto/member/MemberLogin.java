@@ -1,7 +1,6 @@
 package com.domo.ecommerce.dto.member;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

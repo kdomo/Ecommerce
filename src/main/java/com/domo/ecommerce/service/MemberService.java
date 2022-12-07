@@ -2,17 +2,11 @@ package com.domo.ecommerce.service;
 
 import static com.domo.ecommerce.type.MemberStatus.DELETED;
 
-import com.domo.ecommerce.dto.member.MemberDto;
-import com.domo.ecommerce.dto.member.MemberSignUp.Request;
 import com.domo.ecommerce.entity.Member;
 import com.domo.ecommerce.exception.DuplicateMemberIdException;
 import com.domo.ecommerce.exception.LoginFailException;
 import com.domo.ecommerce.repository.MemberRepository;
-import com.domo.ecommerce.type.MemberStatus;
-import com.domo.ecommerce.type.Role;
 import com.domo.ecommerce.utils.SHA256Util;
-import java.time.LocalDateTime;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;

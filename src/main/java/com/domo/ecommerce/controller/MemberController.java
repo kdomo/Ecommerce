@@ -1,7 +1,6 @@
 package com.domo.ecommerce.controller;
 
 import com.domo.ecommerce.aop.MemberLoginCheck;
-import com.domo.ecommerce.dto.member.MemberDto;
 import com.domo.ecommerce.dto.member.MemberLogin;
 import com.domo.ecommerce.dto.member.MemberSignUp;
 import com.domo.ecommerce.service.MemberService;
