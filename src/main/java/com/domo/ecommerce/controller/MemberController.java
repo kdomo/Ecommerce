@@ -3,18 +3,14 @@ package com.domo.ecommerce.controller;
 import com.domo.ecommerce.aop.MemberLoginCheck;
 import com.domo.ecommerce.dto.member.MemberDto;
 import com.domo.ecommerce.dto.member.MemberLogin;
-import com.domo.ecommerce.dto.member.MemberLogin.LoginStatus;
-import com.domo.ecommerce.dto.member.MemberLogin.Response;
 import com.domo.ecommerce.dto.member.MemberSignUp;
 import com.domo.ecommerce.service.MemberService;
-import com.domo.ecommerce.type.MemberStatus;
 import com.domo.ecommerce.utils.SessionUtil;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -66,19 +62,15 @@ public class MemberController {
      * @return
      */
     @PostMapping("/login")
-    public ResponseEntity<MemberLogin.Response> login(
+    @ResponseStatus(HttpStatus.OK)
+    public void login(
             @RequestBody @Valid MemberLogin.Request request,
             HttpSession session) {
         String id = request.getMemberId();
         String password = request.getPassword();
 
-
-        MemberDto memberDto = memberService.login(id, password);
-        MemberLogin.Response response = new Response(LoginStatus.SUCCESS, memberDto);
+        memberService.login(id, password);
         SessionUtil.setLoginMemberId(session, id);
-
-        return ResponseEntity.ok(response);
-
     }
 
     @GetMapping("/logout")

@@ -22,23 +22,4 @@ public class MemberLogin {
         private String password;
     }
 
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class Response {
-
-        private LoginStatus loginStatus;
-
-        private MemberDto memberDto;
-
-        public Response(LoginStatus loginStatus) {
-            this.loginStatus = loginStatus;
-        }
-    }
-
-    public enum LoginStatus {
-        SUCCESS, FAIL, DELETED
-    }
-
 }

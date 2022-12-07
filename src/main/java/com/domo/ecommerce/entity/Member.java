@@ -68,6 +68,7 @@ public class Member extends BaseEntity {
         member.address = address;
         member.addressDetail = addressDetail;
         member.setCreatedAt(LocalDateTime.now());
+        member.setIsDeleted(false);
         return member;
     }
 }

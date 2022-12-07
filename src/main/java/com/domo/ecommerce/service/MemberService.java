@@ -64,15 +64,13 @@ public class MemberService {
      * @param password 로그인 비밀번호
      * @return
      */
-    public MemberDto login(String id, String password) {
+    public void login(String id, String password) {
         String encPassword = SHA256Util.encryptSHA256(password);
         Member member = memberRepository.findByMemberIdAndPassword(id, encPassword)
-                        .orElseThrow(() -> new LoginFailException("로그인에 실패하였습니다."));
+                .orElseThrow(() -> new LoginFailException("아이디 혹은 비밀번호가 올바르지 않습니다."));
 
         if (member.getStatus() == DELETED) {
             throw new LoginFailException("삭제 된 회원입니다.");
         }
-
-        return MemberDto.of(member);
     }
 }

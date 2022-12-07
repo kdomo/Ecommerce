@@ -12,6 +12,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Getter
 @Setter
 public class BaseEntity {
+    private Boolean isDeleted;
     // 회원가입일
     private LocalDateTime createdAt;
     // 최종 수정일
