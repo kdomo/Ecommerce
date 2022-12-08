@@ -1,5 +1,6 @@
 package com.domo.ecommerce.aop;
 
+import com.domo.ecommerce.exception.NotAdminLoginException;
 import com.domo.ecommerce.exception.NotLoginException;
 import com.domo.ecommerce.utils.SessionUtil;
 import javax.servlet.http.HttpSession;
@@ -27,6 +28,19 @@ public class AuthCheckAspect {
         if (ObjectUtils.isEmpty(memberId)) {
             log.debug("AOP - Member Login Check Fail");
             throw new NotLoginException("로그인을 해주세요.");
+        }
+    }
+
+    @Before("@annotation(com.domo.ecommerce.aop.AdminLoginCheck)")
+    public void adminLoginCheck(JoinPoint jp) {
+        log.debug("AOP - Admin Login Check Started");
+
+        HttpSession session = ((ServletRequestAttributes)(RequestContextHolder.currentRequestAttributes())).getRequest().getSession();
+        String adminId = SessionUtil.getLoginAdminId(session);
+
+        if (ObjectUtils.isEmpty(adminId)) {
+            log.debug("AOP - Admin Login Check Fail");
+            throw new NotAdminLoginException("관리자 로그인을 해주세요.");
         }
     }
 
