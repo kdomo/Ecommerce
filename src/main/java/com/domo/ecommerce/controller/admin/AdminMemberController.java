@@ -2,7 +2,7 @@ package com.domo.ecommerce.controller.admin;
 
 import com.domo.ecommerce.aop.AdminLoginCheck;
 import com.domo.ecommerce.dto.member.MemberLogin;
-import com.domo.ecommerce.service.AdminMemberService;
+import com.domo.ecommerce.service.admin.AdminMemberService;
 import com.domo.ecommerce.utils.SessionUtil;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;

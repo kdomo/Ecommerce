@@ -1,4 +1,4 @@
-package com.domo.ecommerce.service;
+package com.domo.ecommerce.service.admin;
 
 import static com.domo.ecommerce.type.MemberStatus.DELETED;
 
