@@ -106,18 +106,8 @@ class MemberServiceTest {
 
         given(memberRepository.findByMemberIdAndPassword(anyString(), anyString()))
                 .willReturn(Optional.of(
-                        Member.builder()
-                                .id(1L)
-                                .memberId(memberId)
-                                .name(name)
-                                .tel(tel)
-                                .addressCode(addressCode)
-                                .address(address)
-                                .addressDetail(addressDetail)
-                                .status(DEFAULT)
-                                .role(MEMBER)
-                                .build()
-                ));
+                        new Member(1L, memberId, SHA256Util.encryptSHA256(password), name,
+                                tel, DEFAULT, MEMBER, addressCode, address, addressDetail)));
 
         //when
         memberService.login(memberId, password);

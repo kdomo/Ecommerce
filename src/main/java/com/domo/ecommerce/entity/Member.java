@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ import org.hibernate.annotations.Where;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Where(clause = "deleted_at is null")
 @SQLDelete(sql = "UPDATE member SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?")
 public class Member extends BaseEntity {
@@ -57,20 +59,4 @@ public class Member extends BaseEntity {
 
     @NotNull //상세주소
     private String addressDetail;
-
-    @Builder
-    public Member(Long id, String memberId, String password, String name, String tel,
-            MemberStatus status, Role role, String addressCode, String address,
-            String addressDetail) {
-        this.id = id;
-        this.memberId = memberId;
-        this.password = password;
-        this.name = name;
-        this.tel = tel;
-        this.status = status;
-        this.role = role;
-        this.addressCode = addressCode;
-        this.address = address;
-        this.addressDetail = addressDetail;
-    }
 }
