@@ -34,8 +34,17 @@ public class MemberService {
         isDuplicatedMemberId(memberId);
 
         memberRepository.save(
-                new Member(null, memberId, SHA256Util.encryptSHA256(password), name,
-                        tel, DEFAULT, MEMBER, addressCode, address, addressDetail));
+                Member.builder()
+                        .memberId(memberId)
+                        .password(SHA256Util.encryptSHA256(password))
+                        .name(name)
+                        .tel(tel)
+                        .status(DEFAULT)
+                        .role(MEMBER)
+                        .addressCode(addressCode)
+                        .address(address)
+                        .addressDetail(addressDetail)
+                        .build());
     }
 
     /**

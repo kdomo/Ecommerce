@@ -105,9 +105,18 @@ class MemberServiceTest {
         String addressDetail = "1층";
 
         given(memberRepository.findByMemberIdAndPassword(anyString(), anyString()))
-                .willReturn(Optional.of(
-                        new Member(1L, memberId, SHA256Util.encryptSHA256(password), name,
-                                tel, DEFAULT, MEMBER, addressCode, address, addressDetail)));
+                .willReturn(Optional.of(Member.builder()
+                        .id(1L)
+                        .memberId(memberId)
+                        .password(SHA256Util.encryptSHA256(password))
+                        .name(name)
+                        .tel(tel)
+                        .status(DEFAULT)
+                        .role(MEMBER)
+                        .addressCode(addressCode)
+                        .address(address)
+                        .addressDetail(addressDetail)
+                        .build()));
 
         //when
         memberService.login(memberId, password);
