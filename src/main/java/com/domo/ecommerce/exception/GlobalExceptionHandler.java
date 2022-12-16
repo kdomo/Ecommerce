@@ -47,6 +47,16 @@ public class GlobalExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(NotAdminLoginException.class)
+    public ErrorMsg handleNotAdminLoginException(NotAdminLoginException e) {
+        return ErrorMsg.builder()
+                .msg(e.getLocalizedMessage())
+                .errorCode(getSimpleName(e))
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
+
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(LoginFailException.class)
     public ErrorMsg handleLoginFailException(LoginFailException e) {
         return ErrorMsg.builder()
