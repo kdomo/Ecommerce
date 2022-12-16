@@ -65,4 +65,15 @@ public class GlobalExceptionHandler {
                 .timestamp(LocalDateTime.now())
                 .build();
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NotFoundMemberException.class)
+    public ErrorMsg handleLoginFailException(NotFoundMemberException e) {
+        return ErrorMsg.builder()
+                .msg(e.getLocalizedMessage())
+                .errorCode(getSimpleName(e))
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
+
 }
