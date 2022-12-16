@@ -1,6 +1,8 @@
 package com.domo.ecommerce.service;
 
+import static com.domo.ecommerce.type.MemberStatus.DEFAULT;
 import static com.domo.ecommerce.type.MemberStatus.DELETED;
+import static com.domo.ecommerce.type.Role.MEMBER;
 
 import com.domo.ecommerce.entity.Member;
 import com.domo.ecommerce.exception.DuplicateMemberIdException;
@@ -32,8 +34,17 @@ public class MemberService {
         isDuplicatedMemberId(memberId);
 
         memberRepository.save(
-                Member.signUp(memberId, password, name, tel, addressCode, address, addressDetail)
-        );
+                Member.builder()
+                        .memberId(memberId)
+                        .password(SHA256Util.encryptSHA256(password))
+                        .name(name)
+                        .tel(tel)
+                        .status(DEFAULT)
+                        .role(MEMBER)
+                        .addressCode(addressCode)
+                        .address(address)
+                        .addressDetail(addressDetail)
+                        .build());
     }
 
     /**

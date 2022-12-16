@@ -1,6 +1,9 @@
 package com.domo.ecommerce.service;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static com.domo.ecommerce.type.MemberStatus.DEFAULT;
+import static com.domo.ecommerce.type.Role.MEMBER;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -100,12 +103,20 @@ class MemberServiceTest {
         String addressCode = "63309";
         String address = "제주특별자치도 제주시";
         String addressDetail = "1층";
-        Member member = Member.signUp(
-                memberId, password, name, tel, addressCode, address, addressDetail
-        );
 
         given(memberRepository.findByMemberIdAndPassword(anyString(), anyString()))
-                .willReturn(Optional.of(member));
+                .willReturn(Optional.of(Member.builder()
+                        .id(1L)
+                        .memberId(memberId)
+                        .password(SHA256Util.encryptSHA256(password))
+                        .name(name)
+                        .tel(tel)
+                        .status(DEFAULT)
+                        .role(MEMBER)
+                        .addressCode(addressCode)
+                        .address(address)
+                        .addressDetail(addressDetail)
+                        .build()));
 
         //when
         memberService.login(memberId, password);
