@@ -19,6 +19,5 @@ public class BaseEntity {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    @NotNull
     private LocalDateTime deletedAt;
 }
