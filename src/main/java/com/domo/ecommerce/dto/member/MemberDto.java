@@ -4,10 +4,12 @@ import com.domo.ecommerce.entity.Member;
 import com.domo.ecommerce.type.MemberStatus;
 import com.domo.ecommerce.type.Role;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Page;
 
 @Getter
 @NoArgsConstructor
@@ -19,8 +21,6 @@ public class MemberDto implements Serializable {
     private Long id;
 
     private String memberId;
-
-    private String password;
 
     private String name;
 
@@ -36,11 +36,13 @@ public class MemberDto implements Serializable {
 
     private String addressDetail;
 
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
     public static MemberDto of(Member member) {
         return MemberDto.builder()
                 .id(member.getId())
                 .memberId(member.getMemberId())
-                .password(member.getPassword())
                 .name(member.getName())
                 .tel(member.getTel())
                 .status(member.getStatus())
@@ -48,6 +50,24 @@ public class MemberDto implements Serializable {
                 .addressCode(member.getAddressCode())
                 .address(member.getAddress())
                 .addressDetail(member.getAddressDetail())
+                .createdAt(member.getCreatedAt())
+                .updatedAt(member.getUpdatedAt())
                 .build();
+    }
+
+    public static Page<MemberDto> ofPageList(Page<Member> members) {
+        return members.map(m -> MemberDto.builder()
+                .id(m.getId())
+                .memberId(m.getMemberId())
+                .name(m.getName())
+                .tel(m.getTel())
+                .status(m.getStatus())
+                .role(m.getRole())
+                .addressCode(m.getAddressCode())
+                .address(m.getAddress())
+                .addressDetail(m.getAddressDetail())
+                .createdAt(m.getCreatedAt())
+                .updatedAt(m.getUpdatedAt())
+                .build());
     }
 }

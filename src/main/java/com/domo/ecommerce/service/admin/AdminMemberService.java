@@ -2,15 +2,21 @@ package com.domo.ecommerce.service.admin;
 
 import static com.domo.ecommerce.type.MemberStatus.DELETED;
 
+import com.domo.ecommerce.dto.member.MemberDto;
 import com.domo.ecommerce.entity.Member;
 import com.domo.ecommerce.exception.DuplicateMemberIdException;
 import com.domo.ecommerce.exception.LoginFailException;
 import com.domo.ecommerce.exception.NotAdminLoginException;
+import com.domo.ecommerce.exception.NotFoundMemberException;
 import com.domo.ecommerce.repository.MemberRepository;
 import com.domo.ecommerce.type.Role;
 import com.domo.ecommerce.utils.SHA256Util;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Log4j2
@@ -39,5 +45,23 @@ public class AdminMemberService {
         if (member.getRole() != Role.ADMIN) {
             throw new NotAdminLoginException("관리자가 아닙니다.");
         }
+    }
+
+    public Page<MemberDto> getMemberList(Pageable pageable) {
+        return MemberDto.ofPageList(memberRepository.findAll(pageable));
+    }
+
+    public MemberDto getMember(Long id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() ->
+                        new NotFoundMemberException("id {" + id + "} 존재하지 않는 회원입니다."));
+        return MemberDto.of(member);
+    }
+
+    public void deleteMember(Long id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() ->
+                        new NotFoundMemberException("id {" + id + "} 존재하지 않는 회원입니다."));
+        memberRepository.delete(member);
     }
 }
